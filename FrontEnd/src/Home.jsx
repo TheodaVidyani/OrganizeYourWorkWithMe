@@ -61,6 +61,7 @@ const Home = () => {
         };
 
         setTodos((prevTodos) => [...prevTodos, newTask]); // Adding the new task to the list
+        fetchTasks(); // Fetch the updated task list
       })
       .catch((error) => {
         console.error("Error adding task:", error);
@@ -68,17 +69,23 @@ const Home = () => {
       });
   };
 
-  useEffect(() => {
+  // Function to fetch tasks
+  const fetchTasks = () => {
     axios
       .get("http://localhost:5000/read-tasks")
       .then((res) => {
         console.log("Tasks fetched successfully:", res.data);
-        setTodos(res.data); // Update todo with the fetched data
+        setTodos(res.data); // Update todos with the fetched data
       })
       .catch((error) => {
         console.error("Error fetching tasks:", error);
       });
-  }, []);
+  };
+
+  // Fetch tasks initially on mount
+  useEffect(() => {
+    fetchTasks();
+  }, []); // This runs once when the component is mounted
 
   const [updateId, setUpdateId] = useState(null);
   const [updateTask, setUpdateTask] = useState('');
@@ -213,7 +220,7 @@ const handleComplete = (id) => {
                 <p className="text-lg font-semibold">{todo.task}</p>
                 <p className="text-sm font-semibold">{todo.Description}</p>
                 <p className="text-xs text-gray-600">{new Date(todo.DateTime).toLocaleDateString()}</p>
-                <p className="text-sm text-gray-700">Status: {todo.status}</p>
+                <p className="text-sm text-gray-700">Status: {todo.status }</p>
               </div>
 
               <div className="flex flex-col text-sm justify-start items-start">

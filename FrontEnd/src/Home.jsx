@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Toast from "./components/Toast";
+
 
 const Home = () => {
   const [tab, setTab] = useState(1); // Track the active tab
@@ -12,6 +14,20 @@ const Home = () => {
   const handleTabs = (tab) => {
     setTab(tab); // Set the active tab
     console.log(tab); // Log the active tab (for debugging)
+  };
+
+  const [showToastMsg, setShowToastMsg] = useState({
+    isShown: false,
+    message: "",
+    type: "add",
+  }); //type: add, edit, delete
+
+  const showToastMessage = (message, type) => {
+    setShowToastMsg({ isShown: true, message, type });
+  };
+
+  const handleCloseToast = () => {
+    setShowToastMsg({ isShown: false, message: "" });
   };
 
   const handleAddTask = (e) => {
@@ -34,6 +50,8 @@ const Home = () => {
         console.log("Task added successfully:", response.data);
         setTasks(""); // Clear the task input
         setDescription(""); // Clear the description input
+        showToastMessage("Task Added Successfully.");
+
 
         // Assuming the backend returns the newly added task as part of the response
         const newTask = {
@@ -102,6 +120,8 @@ const Home = () => {
           )
         );
         setIsEdit(false); // Reset the edit mode after the update
+        showToastMessage("Task Edited Succesfully.");
+
       })
       .catch((error) => {
         console.error('Error:', error.response ? error.response.data : error.message);
@@ -113,6 +133,7 @@ const Home = () => {
     axios.delete("http://localhost:5000/delete-task", { data: { id } })
     .then((res) => {
       console.log("Task deleted successfully:", res.data);
+      showToastMessage("Note deleted successfully.", "delete");
       setTodos(res.data); // Update the task list with the new list of tasks
     })
     .catch((error) => {
@@ -125,6 +146,7 @@ const handleComplete = (id) => {
   .then((res) => {
     console.log("Task completed successfully:", res.data);
     setTodos(res.data); // Update the task list with the new list of tasks
+    showToastMessage("Task Completed.");
   })
 }
 
@@ -256,6 +278,13 @@ const handleComplete = (id) => {
               </div>
             </div>
           ))}
+
+<Toast
+        isShown={showToastMsg.isShown}
+        message={showToastMsg.message}
+        type={showToastMsg.type}
+        onClose={handleCloseToast}
+      />
 
         </div>
       </div>

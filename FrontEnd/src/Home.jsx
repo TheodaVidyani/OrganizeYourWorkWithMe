@@ -132,7 +132,7 @@ const Home = () => {
     axios.delete("http://localhost:5000/delete-task", { data: { id } })
     .then((res) => {
       console.log("Task deleted successfully:", res.data);
-      showToastMessage("Note deleted successfully.", "delete");
+      showToastMessage("Task deleted successfully.", "delete");
       setTodos(res.data); // Update the task list with the new list of tasks
     })
     .catch((error) => {

@@ -1,8 +1,5 @@
 # Todo App - Simplify Your Task Management
 
-<!-- Dynamic Project Views Counter -->
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=YourUsername&label=Project%20views&color=0e75b6&style=flat" alt="Project views" /> </p>
-
 <!-- Typing Animation -->
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?color=%2336BCF7&lines=Welcome+to+My+Todo+App!;Manage+Tasks+Effortlessly;Built+with+React,+Node.js,+and+MySQL)](https://git.io/typing-svg)
 

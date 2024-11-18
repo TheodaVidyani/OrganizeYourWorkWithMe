@@ -55,9 +55,6 @@ Built with **Node.js** and **Express**, the backend securely handles all CRUD op
 
 ---
 
-## 🎯 Let’s Simplify Task Management Together!
----
-
 ## 📂 Setup Instructions  
 
 Follow these steps to set up the application locally:  

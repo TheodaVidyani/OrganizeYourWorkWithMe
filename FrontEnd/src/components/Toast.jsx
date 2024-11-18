@@ -1,5 +1,4 @@
-// 
-
+// Toast.jsx
 
 import React, { useEffect } from 'react';
 import { LuCheck } from 'react-icons/lu';
@@ -10,12 +9,12 @@ const Toast = ({ isShown, message, type, onClose }) => {
         if (!isShown) return; // Skip effect if not shown
         const timeoutId = setTimeout(() => {
             onClose();
-        }, 3000); // Match this with your expected timeout duration
+        }, 3000);
 
         return () => clearTimeout(timeoutId); // Clean up on unmount
     }, [isShown, onClose]);
 
-    if (!isShown) return null; // Do not render if not shown
+    if (!isShown) return null;
 
     return (
         <div

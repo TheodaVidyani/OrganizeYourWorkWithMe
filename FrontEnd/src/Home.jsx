@@ -120,6 +120,14 @@ const Home = () => {
     });
   }
 
+const handleComplete = (id) => {
+  axios.post("http://localhost:5000/complete-task", { id })
+  .then((res) => {
+    console.log("Task completed successfully:", res.data);
+    setTodos(res.data); // Update the task list with the new list of tasks
+  })
+}
+
   return (
     <div className="bg-gray-100 w-screen h-overflow">
       <div className="flex flex-col w-screen h-screen justify-center items-center">
@@ -188,12 +196,12 @@ const Home = () => {
 
               <div className="flex flex-col text-sm justify-start items-start">
                 <button className="text-green-600 hover:text-green-900 cursor-pointer" onClick={() => handleEdit(todo.id, todo.task, todo.Description)}>
-                  Done
+                  Completed
                 </button>
                 <button className="text-red-600 hover:text-red-900 cursor-pointer" onClick={() => handleDelete(todo.id)}>
                   Delete
                 </button>
-                <button className="text-blue-600 hover:text-blue-900 cursor-pointer" onClick={() => handleEdit(todo.id, todo.task, todo.Description)}>
+                <button className="text-blue-600 hover:text-blue-900 cursor-pointer" onClick={() => handleComplete(todo.id)}>
                   Edit
                 </button>
               </div>

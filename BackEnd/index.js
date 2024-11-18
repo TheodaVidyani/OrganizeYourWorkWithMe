@@ -85,6 +85,21 @@ app.delete('/delete-task', (req, res) => {
     });
 });
 
+app.post('/complete-task', (req, res) => {
+    console.log('Received id:', req.body.id);
+    const q = 'UPDATE todo SET status = ? WHERE id = ?';
+    db.query(q, ['completed', req.body.id], (err, result) => {
+        db.query('SELECT * FROM todo', (e, newList) => {
+            if (e) {
+                console.error('Error fetching updated tasks:', e);
+                return res.status(500).send('Error fetching updated tasks');
+            }
+            res.send(newList);
+        });
+        res.send(result);
+    });
+});
+
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
 });

@@ -22,8 +22,8 @@ db.connect((err) => {
 
 app.post('/new-task', (req, res) => {
     console.log(req.body);
-    const q = 'INSERT INTO todo (task, DateTime) values (?, ?)';
-    db.query(q, [req.body.task, new Date()], (err, result) => {
+    const q = 'INSERT INTO todo (task, DateTime, Description, status) values (?, ?, ?, ?)';
+    db.query(q, [req.body.task, new Date(), req.body.Description, 'Active'], (err, result) => {
         if (err) {
             console.error('Error adding task:', err);
             return res.status(500).send('Error adding task');
@@ -89,14 +89,11 @@ app.post('/complete-task', (req, res) => {
     console.log('Received id:', req.body.id);
     const q = 'UPDATE todo SET status = ? WHERE id = ?';
     db.query(q, ['completed', req.body.id], (err, result) => {
-        db.query('SELECT * FROM todo', (e, newList) => {
-            if (e) {
-                console.error('Error fetching updated tasks:', e);
-                return res.status(500).send('Error fetching updated tasks');
-            }
-            res.send(newList);
-        });
-        res.send(result);
+        if(result){
+            db.query('SELECT * FROM todo', (e, newList) => {
+                res.send(newList);
+        })
+        }
     });
 });
 

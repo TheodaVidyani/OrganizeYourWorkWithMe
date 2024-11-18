@@ -185,28 +185,78 @@ const handleComplete = (id) => {
 
         {/* Task List */}
         <div className="flex flex-col w-80 mt-5">
-          {todos.map((todo) => (
+          {
+          tab == 1 && todos.map((todo) => (
             <div key={todo.id} className="flex justify-between bg-white p-3 mb-3">
               <div>
                 <p className="text-lg font-semibold">{todo.task}</p>
                 <p className="text-sm font-semibold">{todo.Description}</p>
                 <p className="text-xs text-gray-600">{new Date(todo.DateTime).toLocaleDateString()}</p>
-                <p className="text-sm text-gray-700">Status: Active</p> {/* Dynamic status */}
+                <p className="text-sm text-gray-700">Status: {todo.status}</p> {/* Dynamic status */}
               </div>
 
               <div className="flex flex-col text-sm justify-start items-start">
-                <button className="text-green-600 hover:text-green-900 cursor-pointer" onClick={() => handleEdit(todo.id, todo.task, todo.Description)}>
+                <button className="text-green-600 hover:text-green-900 cursor-pointer" onClick={() => handleComplete(todo.id)}>
                   Completed
                 </button>
                 <button className="text-red-600 hover:text-red-900 cursor-pointer" onClick={() => handleDelete(todo.id)}>
                   Delete
                 </button>
-                <button className="text-blue-600 hover:text-blue-900 cursor-pointer" onClick={() => handleComplete(todo.id)}>
+                <button className="text-blue-600 hover:text-blue-900 cursor-pointer" onClick={() => handleEdit(todo.id, todo.task, todo.Description)}>
                   Edit
                 </button>
               </div>
             </div>
           ))}
+
+          {
+          tab == 2 && todos.filter(todo => todo.status == 'Active').map((todo) => (
+            <div key={todo.id} className="flex justify-between bg-white p-3 mb-3">
+              <div>
+                <p className="text-lg font-semibold">{todo.task}</p>
+                <p className="text-sm font-semibold">{todo.Description}</p>
+                <p className="text-xs text-gray-600">{new Date(todo.DateTime).toLocaleDateString()}</p>
+                <p className="text-sm text-gray-700">Status: {todo.status}</p> {/* Dynamic status */}
+              </div>
+
+              <div className="flex flex-col text-sm justify-start items-start">
+                <button className="text-green-600 hover:text-green-900 cursor-pointer" onClick={() => handleComplete(todo.id)}>
+                  Completed
+                </button>
+                <button className="text-red-600 hover:text-red-900 cursor-pointer" onClick={() => handleDelete(todo.id)}>
+                  Delete
+                </button>
+                <button className="text-blue-600 hover:text-blue-900 cursor-pointer" onClick={() => handleEdit(todo.id, todo.task, todo.Description)}>
+                  Edit
+                </button>
+              </div>
+            </div>
+          ))}
+
+{
+          tab == 3 && todos.filter(todo => todo.status == 'completed').map((todo) => (
+            <div key={todo.id} className="flex justify-between bg-white p-3 mb-3">
+              <div>
+                <p className="text-lg font-semibold">{todo.task}</p>
+                <p className="text-sm font-semibold">{todo.Description}</p>
+                <p className="text-xs text-gray-600">{new Date(todo.DateTime).toLocaleDateString()}</p>
+                <p className="text-sm text-gray-700">Status: {todo.status}</p> {/* Dynamic status */}
+              </div>
+
+              <div className="flex flex-col text-sm justify-start items-start">
+                <button className="text-green-600 hover:text-green-900 cursor-pointer" onClick={() => handleComplete(todo.id)}>
+                  Completed
+                </button>
+                <button className="text-red-600 hover:text-red-900 cursor-pointer" onClick={() => handleDelete(todo.id)}>
+                  Delete
+                </button>
+                <button className="text-blue-600 hover:text-blue-900 cursor-pointer" onClick={() => handleEdit(todo.id, todo.task, todo.Description)}>
+                  Edit
+                </button>
+              </div>
+            </div>
+          ))}
+
         </div>
       </div>
     </div>
